@@ -24,18 +24,19 @@ direction = True
 # Originally True, use not direction for False
 
 # Robot configuration code
-left_motor_a = Motor(Ports.PORT14, GearSetting.RATIO_6_1, direction)
+left_motor_a = Motor(Ports.PORT16, GearSetting.RATIO_6_1, direction)
 left_motor_b = Motor(Ports.PORT20, GearSetting.RATIO_6_1, direction)
 left_drive_smart = MotorGroup(left_motor_a, left_motor_b)
-right_motor_a = Motor(Ports.PORT4, GearSetting.RATIO_6_1, not direction)
+right_motor_a = Motor(Ports.PORT6, GearSetting.RATIO_6_1, not direction)
 right_motor_b = Motor(Ports.PORT10, GearSetting.RATIO_6_1, not direction)
 right_drive_smart = MotorGroup(right_motor_a, right_motor_b)
 drivetrain = DriveTrain(left_drive_smart, right_drive_smart, 319.19, 295, 40, MM, 0.4444444444444444)
 controller_1 = Controller(PRIMARY)
-catapult_motor_a = Motor(Ports.PORT9, GearSetting.RATIO_18_1, not direction)
+catapult_motor_a = Motor(Ports.PORT9, GearSetting.RATIO_18_1, direction)
 catapult_motor_b = Motor(Ports.PORT19, GearSetting.RATIO_18_1, direction)
-catapult = MotorGroup(catapult_motor_a, catapult_motor_b)
-IntakeUpDown = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
+catapult_motor_c = Motor(Ports.PORT18, GearSetting.RATIO_18_1, not direction)
+catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
+IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
 IntakeSpin = Motor(Ports.PORT5, GearSetting.RATIO_18_1, not direction)
 
 
