@@ -39,6 +39,11 @@ catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
 IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
 IntakeSpin = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
 bumper_a = Bumper(brain.three_wire_port.a)
+sideskirtleft = DigitalOut(brain.three_wire_port.c)
+sideskirtright = DigitalOut(brain.three_wire_port.d)
+
+# I didn't know what the ports were so fill in the port letter before running :)))))
+
 
 
 
@@ -115,10 +120,7 @@ def rc_auto_loop_function_controller_1():
             #     catapult.stop()
             # if controller_1.buttonB.pressing():
             while controller_1.buttonB.pressing():
-                if bumper_a.pressing() == False:
-                    catapult.spin(FORWARD)
-                else:
-                    catapult.stop()
+                controller_1_buttonB()
                     
                     
 
@@ -190,12 +192,22 @@ def onevent_controller_1buttonDown_pressed_0():
 def onevent_controller_1buttonL2_pressed_0():
     global myVariable
     pass
-def Fulldown():
+def controller_1_buttonB():
     while controller_1.buttonB.pressing():
         while bumper_a.pressing():
             print('bumper pressed!!!!')
         # while catbutton == False:
         #     catapult_motor_a.spin()
+def sideskirt_extend():
+    if controller_1.buttonLeft.pressed:
+        sideskirtleft.set(True)
+        sideskirtright.set(True)
+    else:
+        sideskirtleft.set(False)
+        sideskirtright.set(False)
+# when you want use the sideskirt you have to hold down the button so we can use those controller dohickeys to hook up to button left or we can remap later
+        
+
 
 # system event handlers
 controller_1.buttonA.pressed(onevent_controller_1buttonA_pressed_0)
@@ -203,6 +215,8 @@ controller_1.buttonUp.pressed(onevent_controller_1buttonUp_pressed_0)
 controller_1.buttonL1.pressed(onevent_controller_1buttonL1_pressed_0)
 controller_1.buttonDown.pressed(onevent_controller_1buttonDown_pressed_0)
 controller_1.buttonL2.pressed(onevent_controller_1buttonL2_pressed_0)
+controller_1.buttonB.pressed(controller_1_buttonB)
+controller_1.buttonLeft.pressed(sideskirt_extend)
 # add 15ms delay to make sure events are registered correctly.
 wait(15, MSEC)
 
