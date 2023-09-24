@@ -38,7 +38,8 @@ catapult_motor_c = Motor(Ports.PORT18, GearSetting.RATIO_18_1, not direction)
 catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
 IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
 IntakeSpin = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
-catbutton = DigitalIn(ThreeWireType.A)
+bumper_a = Bumper(brain.three_wire_port.a)
+
 
 
 
@@ -110,6 +111,16 @@ def rc_auto_loop_function_controller_1():
                 right_drive_smart.set_velocity(drivetrain_right_side_speed, PERCENT)
                 right_drive_smart.spin(FORWARD)
 
+            # while controller_1.buttonC.pressing():
+            #     catapult.stop()
+            # if controller_1.buttonB.pressing():
+            while controller_1.buttonB.pressing():
+                if bumper_a.pressing() == False:
+                    catapult.spin(FORWARD)
+                else:
+                    catapult.stop()
+                    
+                    
 
             # INTAKE CODE
 
@@ -181,8 +192,10 @@ def onevent_controller_1buttonL2_pressed_0():
     pass
 def Fulldown():
     while controller_1.buttonB.pressing():
-        while catbutton == False:
-            catapult_motor_a.spin()
+        while bumper_a.pressing():
+            print('bumper pressed!!!!')
+        # while catbutton == False:
+        #     catapult_motor_a.spin()
 
 # system event handlers
 controller_1.buttonA.pressed(onevent_controller_1buttonA_pressed_0)
