@@ -20,7 +20,7 @@ from vex import *
 # Brain should be defined by default
 brain=Brain()
 
-direction = True
+direction = True # counterclockwise (reverse in v5) :O
 # Originally True, use not direction for False
 
 # Robot configuration code
@@ -32,16 +32,19 @@ right_motor_b = Motor(Ports.PORT10, GearSetting.RATIO_6_1, not direction)
 right_drive_smart = MotorGroup(right_motor_a, right_motor_b)
 drivetrain = DriveTrain(left_drive_smart, right_drive_smart, 319.19, 295, 40, MM, 0.4444444444444444)
 controller_1 = Controller(PRIMARY)
-catapult_motor_a = Motor(Ports.PORT9, GearSetting.RATIO_18_1, direction)
+catapult_motor_a = Motor(Ports.PORT9, GearSetting.RATIO_18_1, not direction)
 catapult_motor_b = Motor(Ports.PORT19, GearSetting.RATIO_18_1, direction)
 catapult_motor_c = Motor(Ports.PORT18, GearSetting.RATIO_18_1, not direction)
 catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
 IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
-IntakeSpin = Motor(Ports.PORT5, GearSetting.RATIO_18_1, not direction)
+IntakeSpin = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
+catbutton = DigitalIn(ThreeWireType.A)
+
 
 
 # wait for rotation sensor to fully initialize
 wait(30, MSEC)
+
 
 
 def play_vexcode_sound(sound_name):
@@ -61,6 +64,7 @@ controller_1_left_shoulder_control_motors_stopped = True
 controller_1_right_shoulder_control_motors_stopped = True
 drivetrain_l_needs_to_be_stopped_controller_1 = False
 drivetrain_r_needs_to_be_stopped_controller_1 = False
+
 
 # define a task that will handle monitoring inputs from controller_1
 def rc_auto_loop_function_controller_1():
@@ -147,6 +151,8 @@ rc_auto_loop_thread_controller_1 = Thread(rc_auto_loop_function_controller_1)
 #endregion VEXcode Generated Robot Configuration
 myVariable = 0
 
+
+
 def when_started1():
     global myVariable
     pass
@@ -173,6 +179,10 @@ def onevent_controller_1buttonDown_pressed_0():
 def onevent_controller_1buttonL2_pressed_0():
     global myVariable
     pass
+def Fulldown():
+    while controller_1.buttonB.pressing():
+        while catbutton == False:
+            catapult_motor_a.spin()
 
 # system event handlers
 controller_1.buttonA.pressed(onevent_controller_1buttonA_pressed_0)
