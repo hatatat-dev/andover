@@ -38,12 +38,15 @@ catapult_motor_c = Motor(Ports.PORT18, GearSetting.RATIO_18_1, not direction)
 catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
 IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
 IntakeSpin = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
-bumper_a = Bumper(brain.three_wire_port.a)
+bumper_stop = Distance(Ports.PORT7)
 sideskirtleft = DigitalOut(brain.three_wire_port.c)
 sideskirtright = DigitalOut(brain.three_wire_port.d)
 
 # I didn't know what the ports were so fill in the port letter before running :)))))
 
+#HELLO THIS IS EVA :) HAHAHAHAHAHAHAHAHAHhahahahhah
+#DO NOR DELETE PLZ TYSM no🧢 BIG TRUST FR FR HAGS TRUST ME BRO GIT TRIPPIN' GIF IS PRONOUNCED GIF 
+# I am an absolute RIZZARD im the RIZZLER of Oz 🧙‍♂️😬😎 I ate RIZZoto for lunch, you are what you eat. I HAVE IMMACULATE RIZZ 
 
 
 
@@ -119,8 +122,8 @@ def rc_auto_loop_function_controller_1():
             # while controller_1.buttonC.pressing():
             #     catapult.stop()
             # if controller_1.buttonB.pressing():
-            while controller_1.buttonB.pressing():
-                controller_1_buttonB()
+            # while controller_1.buttonB.pressing():
+            #     controller_1_buttonB()
                     
                     
 
@@ -145,6 +148,16 @@ def rc_auto_loop_function_controller_1():
             if controller_1.buttonR1.pressing():
                 IntakeSpin.spin(REVERSE)
                 controller_1_right_shoulder_control_motors_stopped = False
+
+                # while bumper_a.pressing() == False:
+                #     catapult.spin(FORWARD)
+                
+                # while bumper_a.pressing():
+                #     catapult.stop()
+                    
+                # if controller_1.buttonA.pressing():
+                #     catapult.spin(FORWARD)
+
             elif controller_1.buttonR2.pressing():
                 IntakeSpin.spin(FORWARD)
                 controller_1_right_shoulder_control_motors_stopped = False
@@ -181,6 +194,7 @@ def onevent_controller_1buttonUp_pressed_0():
     global myVariable
     pass
 
+
 def onevent_controller_1buttonL1_pressed_0():
     global myVariable
     pass
@@ -193,11 +207,17 @@ def onevent_controller_1buttonL2_pressed_0():
     global myVariable
     pass
 def controller_1_buttonB():
-    while controller_1.buttonB.pressing():
-        while bumper_a.pressing():
-            print('bumper pressed!!!!')
-        # while catbutton == False:
-        #     catapult_motor_a.spin()
+    while bumper_stop != 20:
+        catapult.spin(FORWARD)
+
+    catapult.stop()   
+    # while controller_1.buttonB.pressing():
+    #     catapult.spin(FORWARD)
+    #     while bumper_a.pressing():
+    #         print('bumper pressed!!!!')
+    #         catapult.stop()
+    #     # while catbutton == False:
+    #     #     catapult_motor_a.spin()
 def sideskirt_extend():
     if controller_1.buttonLeft.pressed:
         sideskirtleft.set(True)
