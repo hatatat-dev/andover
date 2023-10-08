@@ -39,14 +39,16 @@ catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
 IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
 IntakeSpin = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
 bumper_stop = Distance(Ports.PORT7)
-sideskirtleft = DigitalOut(brain.three_wire_port.c)
-sideskirtright = DigitalOut(brain.three_wire_port.d)
+sideskirt_right = DigitalOut(brain.three_wire_port.g)
+sideskirt_left = DigitalOut(brain.three_wire_port.h)
+# sideskirtright = DigitalOut(brain.three_wire_port.d)
 
 # I didn't know what the ports were so fill in the port letter before running :)))))
 
 #HELLO THIS IS EVA :) HAHAHAHAHAHAHAHAHAHhahahahhah
 #DO NOR DELETE PLZ TYSM no🧢 BIG TRUST FR FR HAGS TRUST ME BRO GIT TRIPPIN' GIF IS PRONOUNCED GIF 
-# I am an absolute RIZZARD im the RIZZLER of Oz 🧙‍♂️😬😎 I ate RIZZoto for lunch, you are what you eat. I HAVE IMMACULATE RIZZ 
+# I am an absolute RIZZLER im the RIZZARD of Oz 🧙‍♂️😬😎 I ate RIZZoto for lunch, you are what you eat. I HAVE IMMACULATE RIZZ 
+
 
 
 
@@ -206,9 +208,6 @@ def onevent_controller_1buttonDown_pressed_0():
 def onevent_controller_1buttonL2_pressed_0():
     global myVariable
     pass
-def controller_1_buttonB():
-    while bumper_stop != 20:
-        catapult.spin(FORWARD)
 
     catapult.stop()   
     # while controller_1.buttonB.pressing():
@@ -219,13 +218,26 @@ def controller_1_buttonB():
     #     # while catbutton == False:
     #     #     catapult_motor_a.spin()
 def sideskirt_extend():
-    if controller_1.buttonLeft.pressed:
-        sideskirtleft.set(True)
-        sideskirtright.set(True)
-    else:
-        sideskirtleft.set(False)
-        sideskirtright.set(False)
+    sideskirt_left.set(False)
+    sideskirt_right.set(False)
+    extend = controller_1.buttonB.pressing() 
+    if extend == True:
+        sideskirt_right.set(False)
+        sideskirt_right.set(False)
+        # sideskirtleft.set(True)
+        # sideskirtright.set(True)
+    elif extend == False:
+        sideskirt_right.set(False)
+        sideskirt_left.set(False)
+        # sideskirtleft.set(False)
+        # sideskirtright.set(False)
 # when you want use the sideskirt you have to hold down the button so we can use those controller dohickeys to hook up to button left or we can remap later
+
+
+
+def auton():
+    drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
+    drivetrain.drive_for(REVERSE, 18, INCHES, wait=True)
         
 
 
@@ -235,9 +247,12 @@ controller_1.buttonUp.pressed(onevent_controller_1buttonUp_pressed_0)
 controller_1.buttonL1.pressed(onevent_controller_1buttonL1_pressed_0)
 controller_1.buttonDown.pressed(onevent_controller_1buttonDown_pressed_0)
 controller_1.buttonL2.pressed(onevent_controller_1buttonL2_pressed_0)
-controller_1.buttonB.pressed(controller_1_buttonB)
-controller_1.buttonLeft.pressed(sideskirt_extend)
+controller_1.buttonB.pressed(sideskirt_extend)
 # add 15ms delay to make sure events are registered correctly.
+
+def vexcode_auton_function():
+    auton_task_0 = Thread(auton)
+
 wait(15, MSEC)
 
 when_started1()
