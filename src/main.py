@@ -1,4 +1,4 @@
-# ---------------------------------------------------------------------------- #
+ # ---------------------------------------------------------------------------- #
 #                                                                              #
 # 	Module:       main.py                                                      #
 # 	Author:       kids                                                         #
@@ -39,10 +39,9 @@ catapult = MotorGroup(catapult_motor_a, catapult_motor_b, catapult_motor_c)
 IntakeUpDown = Motor(Ports.PORT8, GearSetting.RATIO_18_1, not direction)
 IntakeSpin = Motor(Ports.PORT7, GearSetting.RATIO_18_1, not direction)
 bumper_stop = Distance(Ports.PORT7)
-sideskirt_right = DigitalOut(brain.three_wire_port.g)
-sideskirt_left = DigitalOut(brain.three_wire_port.h)
+sideskirt = DigitalOut(brain.three_wire_port.g)
 # sideskirtright = DigitalOut(brain.three_wire_port.d)
-
+sideskirt.set(False)
 # I didn't know what the ports were so fill in the port letter before running :)))))
 
 #HELLO THIS IS EVA :) HAHAHAHAHAHAHAHAHAHhahahahhah
@@ -179,10 +178,36 @@ rc_auto_loop_thread_controller_1 = Thread(rc_auto_loop_function_controller_1)
 #endregion VEXcode Generated Robot Configuration
 myVariable = 0
 
+def sideskirt_extend():
+    sideskirt.set(True)
+def sideskirt_retract():
+    sideskirt.set(False)
+# when you want use the sideskirt you have to hold down the button so we can use those controller dohickeys to hook up to button left or we can remap later
 
+def auton():
+    drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
+
+    drivetrain.drive_for(REVERSE, 18, INCHES, wait=True)
+    drivetrain.turn_for(RIGHT, 45, wait=True)
+    drivetrain.drive_for(REVERSE, 13, wait=True)
+    drivetrain.drive_for(FORWARD, 13, wait=True)
+    drivetrain.turn_for(LEFT, 45, wait=True)
+    drivetrain.drive_for(FORWARD, 9, wait=True)
+    sideskirt.set(True)
+
+    drivetrain.turn_for(LEFT, 45, wait=True)
+
+    sideskirt.set(False)
+
+    drivetrain.turn_for(LEFT, 45, wait=True)
+    drivetrain.drive_for(FORWARD, 5, wait=True)
+    drivetrain.turn_for(LEFT, 45, wait=True)
+    drivetrain.drive_for(FORWARD, 37, wait=True)
+    sideskirt.set(True) 
 
 def when_started1():
     global myVariable
+    auton()
     pass
 
 def onevent_controller_1buttonA_pressed_0():
@@ -217,28 +242,8 @@ def onevent_controller_1buttonL2_pressed_0():
     #         catapult.stop()
     #     # while catbutton == False:
     #     #     catapult_motor_a.spin()
-def sideskirt_extend():
-    sideskirt_left.set(False)
-    sideskirt_right.set(False)
-    extend = controller_1.buttonB.pressing() 
-    if extend == True:
-        sideskirt_right.set(False)
-        sideskirt_right.set(False)
-        # sideskirtleft.set(True)
-        # sideskirtright.set(True)
-    elif extend == False:
-        sideskirt_right.set(False)
-        sideskirt_left.set(False)
-        # sideskirtleft.set(False)
-        # sideskirtright.set(False)
-# when you want use the sideskirt you have to hold down the button so we can use those controller dohickeys to hook up to button left or we can remap later
 
 
-
-def auton():
-    drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
-    drivetrain.drive_for(REVERSE, 18, INCHES, wait=True)
-        
 
 
 # system event handlers
@@ -248,10 +253,12 @@ controller_1.buttonL1.pressed(onevent_controller_1buttonL1_pressed_0)
 controller_1.buttonDown.pressed(onevent_controller_1buttonDown_pressed_0)
 controller_1.buttonL2.pressed(onevent_controller_1buttonL2_pressed_0)
 controller_1.buttonB.pressed(sideskirt_extend)
+controller_1.buttonY.pressed(sideskirt_retract)
 # add 15ms delay to make sure events are registered correctly.
 
 def vexcode_auton_function():
-    auton_task_0 = Thread(auton)
+    pass
+    # auton_task_0 = Thread(auton)
 
 wait(15, MSEC)
 
