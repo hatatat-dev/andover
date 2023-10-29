@@ -45,9 +45,8 @@ sideskirt.set(False)
 # I didn't know what the ports were so fill in the port letter before running :)))))
 
 #HELLO THIS IS EVA :) HAHAHAHAHAHAHAHAHAHhahahahhah
-#DO NOR DELETE PLZ TYSM no🧢 BIG TRUST FR FR HAGS TRUST ME BRO GIT TRIPPIN' GIF IS PRONOUNCED GIF 
-# I am an absolute RIZZLER im the RIZZARD of Oz 🧙‍♂️😬😎 I ate RIZZoto for lunch, you are what you eat. I HAVE IMMACULATE RIZZ 
-
+#DO NOR DELETE PLZ TYSM no cap BIG TRUST FR FR HAGS TRUST ME BRO GIT TRIPPIN' GIF IS PRONOUNCED GIF 
+# I am an absolute RIZZLER im the RIZZARD of Oz I ate RIZZoto for lunch, you are what you eat. I HAVE IMMACULATE RIZZ 
 
 
 
@@ -185,25 +184,26 @@ def sideskirt_retract():
 # when you want use the sideskirt you have to hold down the button so we can use those controller dohickeys to hook up to button left or we can remap later
 
 def auton():
-    drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
+    pass
+    # drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
 
-    drivetrain.drive_for(REVERSE, 18, INCHES, wait=True)
-    drivetrain.turn_for(RIGHT, 45, wait=True)
-    drivetrain.drive_for(REVERSE, 13, wait=True)
-    drivetrain.drive_for(FORWARD, 13, wait=True)
-    drivetrain.turn_for(LEFT, 45, wait=True)
-    drivetrain.drive_for(FORWARD, 9, wait=True)
-    sideskirt.set(True)
+    # drivetrain.drive_for(REVERSE, 18, INCHES, wait=True)
+    # drivetrain.turn_for(RIGHT, 45, wait=True)
+    # drivetrain.drive_for(REVERSE, 13, wait=True)
+    # drivetrain.drive_for(FORWARD, 13, wait=True)
+    # drivetrain.turn_for(LEFT, 45, wait=True)
+    # drivetrain.drive_for(FORWARD, 9, wait=True)
+    # sideskirt.set(True)
 
-    drivetrain.turn_for(LEFT, 45, wait=True)
+    # drivetrain.turn_for(LEFT, 45, wait=True)
 
-    sideskirt.set(False)
+    # sideskirt.set(False)
 
-    drivetrain.turn_for(LEFT, 45, wait=True)
-    drivetrain.drive_for(FORWARD, 5, wait=True)
-    drivetrain.turn_for(LEFT, 45, wait=True)
-    drivetrain.drive_for(FORWARD, 37, wait=True)
-    sideskirt.set(True) 
+    # drivetrain.turn_for(LEFT, 45, wait=True)
+    # drivetrain.drive_for(FORWARD, 5, wait=True)
+    # drivetrain.turn_for(LEFT, 45, wait=True)
+    # drivetrain.drive_for(FORWARD, 37, wait=True)
+    # sideskirt.set(True) 
 
 def when_started1():
     global myVariable
