@@ -183,6 +183,43 @@ def sideskirt_retract():
     sideskirt.set(False)
 # when you want use the sideskirt you have to hold down the button so we can use those controller dohickeys to hook up to button left or we can remap later
 
+def draw_cat(brain: Brain):
+    brain.screen.clear_screen()
+    brain.screen.set_cursor(1, 1)
+    brain.screen.print("    /\\_____/\\")
+    brain.screen.next_row()
+    brain.screen.print("   /  o   o  \\")
+    brain.screen.next_row()
+    brain.screen.print("  ( ==  ^  == )")
+    brain.screen.next_row()
+    brain.screen.print("   )         (")
+    brain.screen.next_row()
+    brain.screen.print("  (           )")
+    brain.screen.next_row()
+    brain.screen.print(" ( /  \\   /  \\ )")
+    brain.screen.next_row()
+    brain.screen.print("(__(__)___(__)__)")
+    brain.screen.next_row()
+
+EYES_ANIMATION = [
+    "   / o   o   \\",
+    "   /  o   o  \\",
+    "   /   o   o \\",
+    "   /  o   o  \\",
+    "   /  -   -  \\",
+    "   /  o   o  \\",
+    "   /  -   -  \\",
+    "   /  o   o  \\",
+]
+
+def animate_cat_eyes(brain: Brain):
+    while True:
+        for eyes in EYES_ANIMATION:
+            wait(0.5, SECONDS)
+            brain.screen.clear_row(2)
+            brain.screen.set_cursor(2, 1)
+            brain.screen.print(eyes)
+
 def auton():
     pass
     # drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
