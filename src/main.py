@@ -220,6 +220,10 @@ def animate_cat_eyes(brain: Brain):
             brain.screen.set_cursor(2, 1)
             brain.screen.print(eyes)
 
+def cat_thread_function():
+    draw_cat(brain)
+    animate_cat_eyes(brain)
+
 def auton():
     pass
     # drivetrain.set_drive_velocity(70, VelocityUnits.PERCENT)
@@ -294,8 +298,8 @@ controller_1.buttonY.pressed(sideskirt_retract)
 # add 15ms delay to make sure events are registered correctly.
 
 def vexcode_auton_function():
-    pass
     # auton_task_0 = Thread(auton)
+    important_task_cat = Thread(cat_thread_function)
 
 wait(15, MSEC)
 
